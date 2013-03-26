@@ -34,6 +34,21 @@ class SessionsController < ApplicationController
        board.enableServo
     end
     
+    @pid_exists = File.exist?("/var/www/test/pid/motion.pid")
+    
+    if @pid_exists
+      @status = "Motion exists."
+      @button_label = "Close Motion"
+    else
+      @status = "Motion is not running."
+      @button_label = "Open Motion"
+    end
+    
+    respond_to do |format|
+      format.html
+      format.js
+    end
+    
   end
 
   def setting

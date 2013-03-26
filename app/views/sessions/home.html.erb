@@ -17,10 +17,16 @@ $(document).ready(
     function refreshImage() {
     	$('.image').load('/rubytest/refreshSnapshot');
     }
+    
 </script>
 
-<div class="image"><%= render partial: 'rubytest/refreshSnapshot' %></div>
-<span id="message"><%= button_to "Turn on Camera", {:controller => "rubytest", :action => "cameraOps"}, :method => "put", :remote => true, :class => 'button' %></span>
+<div class="image">
+	<%= render partial: 'rubytest/refreshSnapshot' %>
+</div>
+<span id="message"></span>
+<span id="camera_container">
+	<%= render partial: 'home' %>
+</span>
 
 <script>
 	refreshImage();

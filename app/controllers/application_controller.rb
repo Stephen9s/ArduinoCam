@@ -6,8 +6,12 @@ class ApplicationController < ActionController::Base
   def board
     port = '/dev/ttyACM0'
   
-  #specify the port as an argument
-    @board = Arduino.new(port)
+    begin
+      #specify the port as an argument
+      @board = Arduino.new(port)
+    rescue
+      @board = nil
+    end
   end
   
    protected
