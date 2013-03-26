@@ -1,0 +1,146 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ * = require jquery.ui.all
+ *= require fancybox
+ */
+
+.button {
+	font-size: 24px;
+	display: block;
+}
+
+html { 
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  font: 12px;
+  font-family: "Palatino Linotype", "Book Antiqua", "Palatino", serif;
+}
+
+
+#container { 
+  height: 100%;
+  margin: 0 auto;
+}
+
+#notice {
+  color: #000 !important;
+  border: 2px solid red;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color: #f0f0f0;
+  font: bold smaller sans-serif;
+}
+
+#menu
+{
+  width: 100%;
+  height: 50px;
+  background:#333;
+}
+
+#menu a {
+  float: left;
+  color: #fff;
+  text-decoration: none;
+  padding: 0 20px;
+  line-height: 50px;
+}
+
+#menu a:hover {
+  background: #000000;
+  color: #ffffff;
+}
+
+#content {
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+}
+
+#main {
+    float: left;
+    padding: 0px 0px 20px 12px;
+    background: #fff;
+    width: 70%;
+    min-height: 100%;    
+}
+
+#bigmain {
+    float: left;
+    padding: 0px 0px 20px 12px;
+    background: #fff;
+    width: 97%;
+    min-height: 100%;
+}
+
+#bigmain h3 {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+#main h3 {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+#sidebar {
+    width: 25%;
+    float: right;
+    color: black;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 8px;
+    border-left: 1px;
+    border-left-style: dotted;
+    border-color: gray;
+    min-height: 100%;
+    visibility: visible;
+}
+
+#menu, .left {
+  float: left;
+}
+
+#footer, .left {
+  float: left;
+  padding-left: 5px;
+  padding-bottom: 5px;
+  line-height: 35px;
+}
+
+#footer, .right {
+  float: right;
+  padding-right: 5px;
+  padding-bottom: 5px;
+  line-height: 35px;
+}
+
+#footer {
+  background: #333;
+  height: 30px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  color: #334;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.clear_container {
+  clear: both;
+}

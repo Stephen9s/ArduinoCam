@@ -1,0 +1,6 @@
+Original arduino.pde:
+https://github.com/HashNuke/arduino
+
+My 'arduino.pde' is in BETA, but allows the usage of the servo motor.
+
+I pulled the source for the arduino-0.4 gem and modified it myself to what you see in 'arduino.rb'.

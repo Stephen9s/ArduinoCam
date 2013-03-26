@@ -1,0 +1,28 @@
+<% @page_title = "UserAuth | Login" %>
+<div class="sign_form">
+	<h1>Welcome to Count Me In!</h1>
+	<% if flash[:notice] %>
+      <p class="notice">
+      	<%= flash[:notice] %>
+      </p>
+    <% end %>
+    <table>
+    	<tr>
+    		<%= form_tag(:action => 'login_attempt') do %>
+    		<td class="label">Username or E-mail:</td>
+    		<td class="input"><%= text_field_tag :username_or_email %></td>
+    	</tr>
+    	<tr>
+    		<td class="label">Password:</td>
+    		<td class="input"><%= password_field_tag :login_password %></td>
+    	</tr>
+    	<tr>
+    		<td><%= submit_tag "Log in" , :class => "button" %></td>
+    		<% end %>
+    	</tr>
+    	<tr>
+    		
+    		<td><%= button_to "Sign up!", {:controller => "users", :action => "new"}, :class => "button" %></td>
+    	</tr>
+    </table>
+</div>

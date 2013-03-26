@@ -1,0 +1,76 @@
+// Place all the styles related to the gallery controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#gallery-wrap {
+  margin: 0 auto;
+  overflow: hidden;
+  width: 880px;
+  position: relative;
+}
+
+#gallery {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+#gallery li {
+  float: left;
+  margin: 0 20px 15px 0;
+  list-style: none;
+}
+
+#gallery li a img {
+  border: 1px solid #000000;
+  height: 160;
+  width: 120px;
+}
+
+#gallery-controls {
+  margin: 0 auto;
+  width: 880px;
+  font-size: 12px;
+}
+
+#gallery-prev {
+  float: left;
+}
+#gallery-prev-20 {
+  margin-left: 3px;
+  float: left;
+}
+#gallery-prev-50 {
+  margin-left: 3px;
+  float: left;
+}
+
+#gallery-next {
+  float: right;
+}
+
+#gallery-next-20 {
+  margin-right: 3px;
+  float: right;
+}
+#gallery-next-50 {
+  margin-right: 3px;
+  float: right;
+}
+
+#gallery-container {
+  width: 100%;
+}
+
+#image {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+
+#timestamp {
+  font-size: 10pt;
+  text-align: center;
+}

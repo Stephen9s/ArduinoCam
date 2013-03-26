@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Count Me In!</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<!-- START_HIGHLIGHT -->
+<body class='<%= controller.controller_name %>'>
+<div id="container">
+	<div id="menu">
+		<div class="left">
+			<%= link_to "Home", home_path %>
+			<% if current_user %>
+				<%= link_to "Gallery", :controller => 'gallery', :action => 'index'%>
+				<%= link_to "Log out", :controller => 'sessions', :action => 'logout' %>
+			<% end %>
+		</div>
+		<div class="clear"></div>
+	</div>
+
+	<div id="content">
+		<div id="bigmain"><%= yield %></div>
+	</div>
+	<div class="clear_container"></div>
+	<div id="footer"></div>
+</div>
+</body>
+</html>

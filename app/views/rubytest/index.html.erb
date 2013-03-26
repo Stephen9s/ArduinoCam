@@ -1,0 +1,22 @@
+<% if @board.nil? %>
+	"Arduino not attached!"
+<% else %>
+	<%= button_to "Turn left", {:controller => "rubytest", :action => "left"}, :method => "put", :remote => true %>
+	<%= button_to "Turn right", {:controller => "rubytest", :action => "right"}, :method => "put", :remote => true %>
+	<%= button_to "Connection closed", {:controller => "rubytest", :action => "close"}, :method => "put", :remote => true %>
+<% end %>
+
+
+<script>
+$(document).ready(
+         function() {
+          setInterval(function() {
+            $('.image').load('/rubytest/refreshSnapshot');
+        }, 3000);
+    });
+</script>
+
+<div class="image"><%= render partial: 'refreshSnapshot' %></div>
+<span id="message">
+	<%= button_to "Turn on Camera", {:controller => "rubytest", :action => "cameraOps"}, :method => "put", :remote => true, :class => 'button' %>
+</span>

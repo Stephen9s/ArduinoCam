@@ -1,0 +1,148 @@
+<script>
+
+	$(function() {
+		$(".image").hover(function() {
+			var image = $(this).attr("rel");
+			$('#image').fadeTo('slow');
+			$('#image').html('<img src="' + image + '" width="320" height="240"/>');
+			return false;
+	    	});
+	});
+	
+	$(document).ready(function() {
+		if(jQuery("#gallery").length) {
+			
+			jQuery("#gallery").fancybox();
+			
+			var totalImages = jQuery("#gallery > li").length
+			var imageWidth  = jQuery("#gallery > li:first").outerWidth(true)
+			var totalWidth = imageWidth * totalImages
+			var visibleImages = Math.round(jQuery("#gallery-wrap").width() / imageWidth)
+			var visibleWidth = visibleImages * imageWidth
+			var stopPosition = (visibleWidth - totalWidth)
+			
+			var multiplier = 1;
+			
+			var timer;
+			var interval = 1;
+			
+			jQuery("#gallery").width(totalWidth);
+			
+			jQuery("#gallery-prev").hover(function() {
+				multiplier = 1;
+				interval = 1;
+				timer = slideLeft();
+			}, function() {
+				clearInterval(timer);
+			});
+			
+			jQuery("#gallery-prev-20").click(function() {
+				multiplier = 50;
+				slideLeftClick();
+			});
+			
+			jQuery("#gallery-prev-50").click(function() {
+				multiplier = 50;
+				slideLeftClick();
+			});
+			
+			jQuery("#gallery-next").hover(function() {
+				multiplier = 1;
+				interval = 1;
+				timer = slideRight();
+			}, function() {
+				clearInterval(timer);
+			});
+			
+			jQuery("#gallery-next-20").click(function() {
+				multiplier = 20;
+				slideRightClick();
+			});
+			
+			jQuery("#gallery-next-50").click(function() {
+				multiplier = 50;
+				slideRightClick();
+			});
+			
+			function slideRight() {
+				return setInterval(function() {
+					if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")) {
+						jQuery("#gallery").animate({left : "-=" + imageWidth*multiplier + "px"});
+					}
+				}, interval);
+			}
+			
+			function slideRightClick() {
+				return setInterval(function() {
+					if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")) {
+						jQuery("#gallery").animate({left : "-=" + imageWidth*multiplier + "px"});
+					}
+				});
+			}
+			
+			function slideLeft() {
+				return setInterval(function() {
+					if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")) {
+						jQuery("#gallery").animate({left : "+=" + imageWidth*multiplier + "px"});
+					}
+				}, interval);
+			}
+			
+			function slideLeftClick() {
+				return setInterval(function() {
+					if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")) {
+						jQuery("#gallery").animate({left : "+=" + imageWidth*multiplier + "px"});
+					}
+				});
+			}
+		}
+	});
+
+</script>
+<%= @search_term %>
+<div class="search_form">
+	<table>
+    	<tr>
+    		<%= form_tag :controller => 'gallery', :action => 'index' do %>
+	  				<td class="label">Date:</td>
+    				<td class="input"><%= text_field_tag :search, params[:search], :id => 'start_date' %></td>
+    				<td><%= submit_tag "Go", :name => nil %> </td>
+				<% end %>
+    	</tr>
+    </table>
+</div>
+
+<% if @snapshots.size > 0 %>
+	<div id="gallery-container">
+		<div id="image">
+			<%= image_tag(@snapshots.first.filename, :width => 320, :height => 240) %>
+		</div>
+		<div id="gallery-wrap">
+		    <ul id="gallery">
+				<% @snapshots.each_with_index do |snapshot, index| %>          
+		    		<li>
+		    			<a href="#" rel="/assets/<%= snapshot.filename %>" class="image">
+		    				<%= image_tag(snapshot.filename, :width => 160, :height => 120)%>
+		    			</a>
+		    			<br />
+		    			<div id="timestamp">
+		    				<%= snapshot.year << "-" << snapshot.month << "-" << snapshot.day %>
+		    				<br />
+		    				<%= snapshot.hour << ":" << snapshot.minute << ":" << snapshot.second %>
+		    			</div>
+		    		</li>
+				<% end %>
+		    </ul>
+		</div>
+		<div id="gallery-controls">
+		    <a href="#" id="gallery-prev"><</a>
+		    <a href="#" id="gallery-prev-20"><<</a>
+		    <a href="#" id="gallery-prev-50"><<<</a>
+		    <a href="#" id="gallery-next">></a>
+		    <a href="#" id="gallery-next-20">>></a>
+		    <a href="#" id="gallery-next-50">>>></a>
+		</div>
+	</div>
+<% else %>
+No results
+<% end%>
