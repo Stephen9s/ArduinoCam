@@ -16,7 +16,7 @@
 *.class
 *.pyc
 *.pyo
-/assets/images/snapshots/*
-/vendor/assets/*
-/pid/*
-/tmp/*
+/assets/images/snapshots/
+/vendor/assets/
+/pid/
+/tmp/
