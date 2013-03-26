@@ -11,11 +11,17 @@
 <script>
 $(document).ready(
          function() {
-          setInterval(function() {
-            $('.image').load('/rubytest/refreshSnapshot');
-        }, 3000);
-    });
+          setInterval(refreshImage, 3000);
+    	});
+    
+    function refreshImage() {
+    	$('.image').load('/rubytest/refreshSnapshot');
+    }
 </script>
 
 <div class="image"><%= render partial: 'rubytest/refreshSnapshot' %></div>
 <span id="message"><%= button_to "Turn on Camera", {:controller => "rubytest", :action => "cameraOps"}, :method => "put", :remote => true, :class => 'button' %></span>
+
+<script>
+	refreshImage();
+</script>

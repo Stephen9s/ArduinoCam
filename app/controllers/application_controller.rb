@@ -8,11 +8,6 @@ class ApplicationController < ActionController::Base
   
   #specify the port as an argument
     @board = Arduino.new(port)
-    
-    if(@board.nil)
-      port = '/dev/ttyACM1'
-      @board = Arduino.new(port)
-    end
   end
   
    protected
