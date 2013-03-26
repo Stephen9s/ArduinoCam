@@ -1,13 +1,3 @@
-<% if @board.nil? %>
-	"Arduino not attached!"
-<% else %>
-	<%= @board %>
-	<%= button_to "Turn left", {:controller => "rubytest", :action => "left"}, :method => "put", :remote => true %>
-	<%= button_to "Turn right", {:controller => "rubytest", :action => "right"}, :method => "put", :remote => true %>
-	<%= button_to "Close Connection", {:controller => "rubytest", :action => "close"}, :method => "put", :remote => true %>
-<% end %>
-
-
 <script>
 $(document).ready(
          function() {
@@ -20,14 +10,23 @@ $(document).ready(
     
 </script>
 
-<div class="image">
-	<%= render partial: 'rubytest/refreshSnapshot' %>
+<div id="arduinocam_container">
+	<div class="image"><%= render partial: 'rubytest/refreshSnapshot' %></div>
+	<span id="message"></span>
+	<span id="camera_container">
+		<%= render partial: 'home' %>
+	</span>
+	<div id="arduino_controller">
+		<% if @board.nil? %>
+			"Arduino not attached!"
+		<% else %>
+			<%= @board %>
+			<%= button_to "<<", {:controller => "rubytest", :action => "left"}, :method => "put", :remote => true, :id => 'turn-left'  %>
+			<%= button_to ">>", {:controller => "rubytest", :action => "right"}, :method => "put", :remote => true, :id => 'turn-right' %>
+			<%= button_to "DC", {:controller => "rubytest", :action => "close"}, :method => "put", :remote => true, :id => 'close-connection' %>
+		<% end %>
+	</div>
 </div>
-<span id="message"></span>
-<span id="camera_container">
-	<%= render partial: 'home' %>
-</span>
-
 <script>
 	refreshImage();
 </script>

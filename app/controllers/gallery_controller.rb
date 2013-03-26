@@ -14,7 +14,7 @@ class GalleryController < ApplicationController
     # REFERENCE #
     # http://css-plus.com/2010/09/create-your-own-jquery-image-slider/
     
-    @snapshots = Snapshot.find(:all, :select => "filename", :conditions => ['filename LIKE ?', "%#{@search_term}%"])
+    @snapshots = Snapshot.find(:all, :select => "filename", :conditions => ['filename LIKE ?', "%#{@search_term}%"], :order => "id desc", :limit => 100)
     
     @snapshots.each do |snapshot|
         snapshot.filename.slice! "/var/www/test/app/assets/images/snapshots/"

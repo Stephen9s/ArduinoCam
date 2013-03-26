@@ -1,3 +1,27 @@
 // Place all the styles related to the sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#arduinocam_container {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 50px;
+}
+
+#arduino_controller {
+  margin: 0 auto;
+  padding-top: 15px;
+}
+
+#turn-left {
+  float: left;
+}
+#turn-right {
+  margin-left: 3px;
+  float: right;
+}
+#close-connection {
+  margin-left: 3px;
+  float: center;
+}
