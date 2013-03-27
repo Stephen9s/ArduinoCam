@@ -7,6 +7,7 @@ gem 'rails', '3.2.11'
 
 gem 'sqlite3'
 gem 'serialport'
+gem 'open4'
 gem 'arduino', "0.4.1"
 gem 'json'
 
