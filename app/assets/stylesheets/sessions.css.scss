@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 #arduinocam_container {
   width: 50%;
   margin: 0 auto;
@@ -21,7 +22,20 @@
   margin-left: 3px;
   float: right;
 }
+
 #close-connection {
   margin-left: 3px;
   float: center;
+}
+
+#arduinocam-container {
+  
+}
+
+#image-wrapper {
+  margin: 0 auto;
+  //text-align: center;
+  width: 320px;
+  height: 240px;
+  padding-bottom: 10px;
 }

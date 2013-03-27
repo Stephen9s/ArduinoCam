@@ -50,7 +50,7 @@ body {
 {
   width: 100%;
   height: 50px;
-  background:#333;
+  background:#225e71;
 }
 
 #menu a {
@@ -62,7 +62,7 @@ body {
 }
 
 #menu a:hover {
-  background: #000000;
+  background: #024A68;
   color: #ffffff;
 }
 
@@ -127,15 +127,15 @@ body {
   float: right;
   padding-right: 5px;
   padding-bottom: 5px;
+  padding-top: 7px;
   line-height: 35px;
 }
 
 #footer {
-  background: #333;
+  background: #225e71;
   height: 30px;
   border-top: 2px solid;
   border-bottom: 2px solid;
-  color: #334;
   position: fixed;
   bottom: 0;
   width: 100%;
