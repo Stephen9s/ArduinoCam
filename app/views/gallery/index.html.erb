@@ -12,8 +12,6 @@
 	$(document).ready(function() {
 		if(jQuery("#gallery").length) {
 			
-			jQuery("#gallery").fancybox();
-			
 			var totalImages = jQuery("#gallery > li").length
 			var imageWidth  = jQuery("#gallery > li:first").outerWidth(true)
 			var totalWidth = imageWidth * totalImages
@@ -73,11 +71,9 @@
 			}
 			
 			function slideRightClick() {
-				return setInterval(function() {
 					if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")) {
-						jQuery("#gallery").animate({left : "-=" + imageWidth*multiplier + "px"});
+						jQuery("#gallery").animate({left : "-=" + imageWidth*multiplier + "px"}, {duration: 1000, easing: 'swing'});
 					}
-				});
 			}
 			
 			function slideLeft() {
@@ -89,11 +85,14 @@
 			}
 			
 			function slideLeftClick() {
-				return setInterval(function() {
 					if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")) {
-						jQuery("#gallery").animate({left : "+=" + imageWidth*multiplier + "px"});
+						jQuery("#gallery").animate({left : "+=" + imageWidth*multiplier + "px"}, {duration: 1000, easing: 'swing'});
 					}
-				});
+			}
+			
+			function callback() {
+  				// Do whatever you want.
+  				jQuery("#gallery").stop();
 			}
 		}
 	});
