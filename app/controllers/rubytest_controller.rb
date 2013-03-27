@@ -53,8 +53,8 @@ class RubytestController < ApplicationController
     
     if pid_exists
       # If PID file exists, destroy process first so that it has a graceful quit
-      #destroy_process = system("kill $(pidof motion)")
-      pid, stdin, stdout, stderr = Open4::popen4 "killall motion"
+      destroy_process = system("killall motion")
+      #pid, stdin, stdout, stderr = Open4::popen4 "killall motion"
       # Check again if the motion.pid exists
       # If it does, then process wasn't killed gracefully
       # Potential for infinite loop here
