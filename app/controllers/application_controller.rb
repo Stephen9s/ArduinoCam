@@ -4,14 +4,31 @@ class ApplicationController < ActionController::Base
   helper_method :board
   
   def board
-    port = '/dev/ttyACM0'
-  
-    begin
-      #specify the port as an argument
-      @board = Arduino.new(port)
-    rescue
-      @board = nil
+    # /dev/ttyACM0/1/2/3 etc are files, so File.exist?() can be used
+    port = ['/dev/ttyACM0', '/dev/ttyACM1', '/dev/ttyACM2']
+    
+    port_exists = false
+    port_available = nil
+    @board = nil
+    
+    port.each do |p|
+      port_exists = File.exist?(p)
+      if port_exists
+        port_available = p
+        break
+      end
+      
     end
+       
+    if port_exists
+      begin
+        #specify the port as an argument
+        @board = Arduino.new(port_available)
+      rescue
+        # Do nothing
+      end
+    end
+    
   end
   
    protected
