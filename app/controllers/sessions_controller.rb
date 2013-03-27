@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
     @pid_exists = File.exist?("/var/www/test/pid/motion.pid")
     
     if @pid_exists
-      @status = "Motion exists."
+      @status = "Motion is running."
       @button_label = "Close Motion"
     else
       @status = "Motion is not running."
