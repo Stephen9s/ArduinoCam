@@ -4,6 +4,8 @@ class GalleryController < ApplicationController
   
   def index  
     
+    @search_term = "snapshot"
+    
     if(params[:search] != "")
       @search_term = params[:search]
     else
@@ -13,8 +15,11 @@ class GalleryController < ApplicationController
     
     # REFERENCE #
     # http://css-plus.com/2010/09/create-your-own-jquery-image-slider/
-    
-    @snapshots = Snapshot.find(:all, :select => "filename", :conditions => ['filename LIKE ?', "%#{@search_term}%"], :order => "id desc", :limit => 100)
+    if (params[:search_motiondetection] == "1")
+      @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp != ?', "%#{@search_term}%", ""], :order => "id desc", :limit => 100)
+    else
+      @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp = ?', "%#{@search_term}%", ""], :order => "id desc", :limit => 100)
+    end
     
     @snapshots.each do |snapshot|
         snapshot.filename.slice! "/var/www/test/app/assets/images/snapshots/"

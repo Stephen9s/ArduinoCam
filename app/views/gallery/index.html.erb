@@ -118,11 +118,19 @@
 		</div>
 		<div id="gallery-controls">
 		    <a href="#" id="gallery-prev"><</a>
-		    <a href="#" id="gallery-prev-10"><<</a>
-		    <a href="#" id="gallery-prev-20"><<<</a>
+		    <% if @snapshots.size > 10%>
+		    	<a href="#" id="gallery-prev-10"><<</a>
+		    	<% if @snapshots.size > 20 %>
+		    		<a href="#" id="gallery-prev-20"><<<</a>
+		    	<% end %>
+		    <% end %>
 		    <a href="#" id="gallery-next">></a>
-		    <a href="#" id="gallery-next-10">>></a>
-		    <a href="#" id="gallery-next-20">>>></a>
+		    <% if @snapshots.size > 10%>
+		    	<a href="#" id="gallery-next-10">>></a>
+		    	<% if @snapshots.size > 20 %>
+		    		<a href="#" id="gallery-next-20">>>></a>
+		    	<% end %>
+		    <% end%>
 		</div>
 	</div>
 <% else %>

@@ -98,7 +98,7 @@ class RubytestController < ApplicationController
     # Ensure that motion is NOT running
     if !pid_exists
       
-      start = system("/usr/local/bin/motion -m")
+      start = system("/usr/local/bin/motion")
       #pid, stdin, stdout, stderr = Open4::popen4 "/usr/local/bin/motion -m"
       
       sleep 1.1
