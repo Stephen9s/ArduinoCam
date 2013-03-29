@@ -69,6 +69,7 @@ Test::Application.routes.draw do
   match "login_attempt", :to => "sessions#login_attempt"
   match "logout", :to => "sessions#logout"
   match "home", :to => "sessions#home"
+  match "histogram", :to => "analysis#index"
   
   resources :users
   get "users/new"
