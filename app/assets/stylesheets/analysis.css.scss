@@ -15,13 +15,22 @@
   width:800px;
   height:500px;
 }
+
+#browse-histogram-container {
+  width: 800px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 #list-data-container {
   width: 800px;
   margin: 0 auto;
   padding: 0;
   text-align: center;
   margin-top: 50px;
-  float: right;
 }
   
 .list-data {

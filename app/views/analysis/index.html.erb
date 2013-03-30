@@ -30,7 +30,7 @@
     var ticks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
     var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
     var plot1 = $.jqplot('histogram', [ajaxDataRenderer()], {
-    	title: monthNames[new Date().getMonth()]+" "+ new Date().getFullYear(),
+    	//title: monthNames[new Date().getMonth()]+" "+ new Date().getFullYear(),
         // The "seriesDefaults" option is an options object that will
         // be applied to all series in the chart.
         seriesDefaults:{
@@ -69,30 +69,41 @@
 });
 </script>
 <div id="histogram-container">
-	<div id="histogram"></div>
-	<div id="list-data-container">
-		<div class="list-data">
-		    <div class="header">
-		         <div class="col">Day</div>
-		         <div class="col">Count</div>
-		         <div class="col">Link</div>
-		    </div>
-		    <% @count.each_with_index do |incident, i| %>
-				<% if incident > 0 %>
-					<div class="table-row">
-						<% modified_date = @yearmonth %>
-						<% if (i+1) < 10 %>
-							<% modified_date = modified_date + (i+1).to_s.rjust(2,'0') %>
-						<% else %>
-							<% modified_date = modified_date + (i+1).to_s %>
-						<% end %>
-			        	<div class="col"><%=i+1%></div>
-			        	<div class="col"><%=incident%></div>
-			        	<div class="col"><%= link_to "Go", {:controller => "gallery", :action => "index", :search_motiondetection => '1', :search => "#{modified_date}"} %></div>
-			   		</div>
-				<% end %>
-			<% end%>
-		</div>
+	<div id="browse-histogram-container">
+		<%= form_tag(:action => 'index') do |f| %>
+			<%= select_tag :search_month,  options_for_select(@list_of_months.collect{ |u| [u[0],u[1]] }, @selected_month )%>
+			<%= select_tag :search_year,  options_for_select(@generated_years.collect{ |u| [u,u] }, @selected_year )%>
+			<%= submit_tag "Go" %>
+		<% end %>
 	</div>
+	<% if @snapshot_count > 0 %>
+		<div id="histogram"></div>
+		<div id="list-data-container">
+			<div class="list-data">
+			    <div class="header">
+			         <div class="col">Day</div>
+			         <div class="col">Count</div>
+			         <div class="col">Link</div>
+			    </div>
+			    <% @count.each_with_index do |incident, i| %>
+					<% if incident > 0 %>
+						<div class="table-row">
+							<% modified_date = @yearmonth %>
+							<% if (i+1) < 10 %>
+								<% modified_date = modified_date + (i+1).to_s.rjust(2,'0') %>
+							<% else %>
+								<% modified_date = modified_date + (i+1).to_s %>
+							<% end %>
+				        	<div class="col"><%=i+1%></div>
+				        	<div class="col"><%=incident%></div>
+				        	<div class="col"><%= link_to "Go", {:controller => "gallery", :action => "index", :search_motiondetection => '1', :search => "#{modified_date}"} %></div>
+				   		</div>
+					<% end %>
+				<% end%>
+			</div>
+		</div>
+	<% else %>
+		<div id="no-data">No data for the selected month.</div>
+	<% end %>
 </div>
 

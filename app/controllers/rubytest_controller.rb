@@ -31,6 +31,7 @@ class RubytestController < ApplicationController
       
       # Then close the board
       board.close
+      board = nil
     end
     
     respond_to do | format |
