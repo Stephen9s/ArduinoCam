@@ -3,9 +3,12 @@ class AnalysisController < ApplicationController
   
   def index
     
+    @count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
     time = Time.now
     @yearmonth = ""
     current_year = (time.strftime("%Y")).to_i
+    
     
     if Analysis.exists?(1)      
       
@@ -21,10 +24,11 @@ class AnalysisController < ApplicationController
       entry.save
     end
     
+    
     saved_date = Analysis.find_by_id(1)
     @selected_year = saved_date.year
     @selected_month = saved_date.month
-    @yearmonth = saved_date.year << saved_date.month  
+    @yearmonth = "#{saved_date.year}#{saved_date.month}"
     
     @list_of_months = [["Jan","01"],["Feb","02"],["Mar","03"],["Apr","04"],["May","05"],["Jun","06"],["Jul","07"],["Aug","08"],["Sep","09"],["Oct","10"],["Nov","11"],["Dec","12"]]
     
