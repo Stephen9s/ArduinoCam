@@ -23,15 +23,11 @@ class User < ActiveRecord::Base
             user = User.find_by_username(username_or_email)
           end
           
-          if user && user.match_password(login_password)
+          if user && user.hashed_pass == BCrypt::Engine.hash_secret(login_password, user.salt)
             return user
           else
             return false
           end
-        end
-        
-        def match_password(login_password="")
-          hashed_pass = BCrypt::Engine.hash_secret(login_password, salt)
         end
         
         def encrypt_password

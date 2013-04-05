@@ -61,5 +61,10 @@ module Test
     
     # Allows me to view snapshot pictures
     config.assets.paths << Rails.root.join("app", "assets", "images","snapshots")
+    config.assets.paths << Rails.root.join("app", "assets", "images","mobile")
+    config.assets.paths << Rails.root.join("app", "assets", "stylesheets","full")
+    config.assets.paths << Rails.root.join("app", "assets", "stylesheets","mobile")
+    config.assets.paths << Rails.root.join("app", "assets", "javascripts","full")
+    config.assets.paths << Rails.root.join("app", "assets", "javascripts","mobile")
   end
 end
