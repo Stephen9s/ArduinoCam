@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   
   before_filter :authenticate_user, :except => [:index, :login, :login_attempt, :logout]
   before_filter :save_login_state, :only => [:index, :login, :login_attempt] 
+  before_filter :check_for_mobile
   
   def login
     
@@ -14,11 +15,11 @@ class SessionsController < ApplicationController
     if authorized_user
       session[:user_id] = authorized_user.id
       flash[:notice] = "Welcome back, #{authorized_user.username}"
-      redirect_to(:action => 'home')
+      redirect_to home_path
     else
       flash[:notice] = "Invalid username or password."
       flash[:color] = "invalid"
-      render "login"
+      render 'login'
     end
   end
   

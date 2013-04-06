@@ -1,0 +1,35 @@
+<script>
+ 
+	$(document).ready(function() {
+		setInterval(refreshImage, 3000);
+	});
+	
+	function refreshImage() {
+		$('div.image').load('rubytest/refreshSnapshot');
+	}
+  	
+</script>
+
+<div class="image"></div>
+		<div id="message"></div>
+		<div id="camera_container">
+			<%= @status %>
+			<% if @pid_exists == true %>
+				<%= button_to @button_label, {:controller => "rubytest", :action => "closeCamera"}, :method => "put", :remote => true, "data-role" => 'button', :id => "closeCamera" %>
+			<% else %>
+				<%= button_to @button_label, {:controller => "rubytest", :action => "startCamera"}, :method => "put", :remote => true, "data-role" => 'button', :id => "startCamera" %>
+			<% end%>
+		</div>
+		<div id="arduino_controller">
+			<% if @board.nil? %>
+				"Arduino not attached!"
+			<% else %>
+				<%= @board %>
+				<%= button_to "<<", {:controller => "rubytest", :action => "left"}, :method => "put", :remote => true, :id => 'turn-left'  %>
+				<%= button_to ">>", {:controller => "rubytest", :action => "right"}, :method => "put", :remote => true, :id => 'turn-right' %>
+				<%= button_to "DC", {:controller => "rubytest", :action => "close"}, :method => "put", :remote => true, :id => 'close-connection' %>
+			<% end %>
+		</div>
+<script>
+	refreshImage();
+</script>

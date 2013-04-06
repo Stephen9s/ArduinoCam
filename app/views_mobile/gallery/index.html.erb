@@ -1,0 +1,26 @@
+<%= javascript_include_tag "klass.min.js" %>
+<%= javascript_include_tag "code.photoswipe.jquery-3.0.5.min.js" %>
+
+
+<%= stylesheet_link_tag "photoswipe.css" %>
+<script type="text/javascript">
+	(function(window, $, PhotoSwipe) {
+		$(document).ready(function() {
+			$("#gallery a").photoSwipe({});
+		});
+	}(window, window.jQuery, window.Code.PhotoSwipe));
+
+</script>
+<% if @snapshots.size > 0 %>
+	<ul id="gallery">
+		<% @snapshots.each_with_index do |snapshot, index| %>          
+				<li><a href="/assets/<%= snapshot.filename %>" rel="external">
+					<%= image_tag(snapshot.filename, :width => 160, :height => 120)%>
+				</a></li>
+		<% end %>
+	</ul>
+<% else %>
+	<div id="no-results">
+		No snapshots available.
+	</div>
+<% end%>

@@ -11,15 +11,4 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-//= require jquery_ujs
-//= require_tree ./full
-//= require /images/snapshots
-//= require jquery.ui.all
-$(function() {
-  $("#start_date").datepicker({  
-            inline: true, 
-            dateFormat: "yymmdd",
-            showOtherMonths: true,  
-            dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],  
-        });  
-});
+//= require_tree ./mobile

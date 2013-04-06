@@ -1,0 +1,112 @@
+<%= javascript_include_tag "jquery.jqplot.min.js" %>
+<%= javascript_include_tag "jqplot.barRenderer.min.js" %>
+<%= javascript_include_tag "jqplot.categoryAxisRenderer.min.js" %>
+<%= javascript_include_tag "jqplot.pointLabels.min.js" %>
+<%= javascript_include_tag "jqplot.highlighter.js" %>
+<%= javascript_include_tag "jqplot.json2.min.js" %>
+<%= stylesheet_link_tag "jquery.jqplot.min.css" %>
+
+<script class="code" type="text/javascript">
+
+	var ajaxDataRenderer = function() {
+	    var ret = null;
+	    $.ajax({
+	      // have to use synchronous here, else the function 
+	      // will return before the data is fetched
+	      async: false,
+	      url: "/histogram.json",
+	      dataType:"json",
+	      success: function(data) {
+	        ret = data;
+	      }
+	    });
+	    return ret;
+	  };  	
+
+	$(document).ready(function(){
+    // Can specify a custom tick Array.
+    // Ticks should match up one for each y value (category) in the series.
+    var ticks = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+    var monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+    var plot1 = $.jqplot('histogram', [ajaxDataRenderer()], {
+    	//title: monthNames[new Date().getMonth()]+" "+ new Date().getFullYear(),
+        // The "seriesDefaults" option is an options object that will
+        // be applied to all series in the chart.
+        seriesDefaults:{
+            renderer:$.jqplot.BarRenderer,
+            rendererOptions: {fillToZero: true}
+        },
+        // Custom labels for the series are specified with the "label"
+        // option on the series option.  Here a series option object
+        // is specified for each series.
+        series:[
+            {label:'Incidents'}
+        ],
+        // Show the legend and put it outside the grid, but inside the
+        // plot container, shrinking the grid to accomodate the legend.
+        // A value of "outside" would not shrink the grid and allow
+        // the legend to overflow the container.
+        legend: {
+            show: true,
+            placement: 'insideGrid'
+        },
+        axes: {
+            // Use a category axis on the x axis and use our custom ticks.
+            xaxis: {
+                renderer: $.jqplot.CategoryAxisRenderer,
+                ticks: ticks,
+                tickOptions: {
+                	showLabel: false
+                }
+            },
+            // Pad the y axis just a little so bars can get close to, but
+            // not touch, the grid boundaries.  1.2 is the default padding.
+            yaxis: {
+                pad: 0,
+                tickOptions: {formatString: '%d'}
+            }
+        }
+
+    });
+});
+</script>
+<div id="histogram-container">
+	<%= form_tag(:action => 'index') do |f| %>
+		<div data-role="controlgroup" data-type="horizontal">
+			<%= select_tag :search_month,  options_for_select(@list_of_months.collect{ |u| [u[0],u[1]] }, @selected_month )%>
+			<%= select_tag :search_year,  options_for_select(@generated_years.collect{ |u| [u,u] }, @selected_year )%>
+			<%= submit_tag "Go"%>
+		</div>
+	<% end %>
+	<% if @snapshot_count > 0 %>
+		<div id="histogram"></div>
+		<table data-role="table" id="incidents-table" data-mode="reflow" class="ui-responsive table-stroke">
+		  <thead>
+		    <tr>
+		      <th data-priority="1">Day</th>
+		      <th data-priority="2">Count</th>
+		      <th data-priority="3">Link</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		  	<% @count.each_with_index do |incident, i| %>
+					<% if incident > 0 %>
+							<% modified_date = @yearmonth %>
+							<% if (i+1) < 10 %>
+								<% modified_date = modified_date + (i+1).to_s.rjust(2,'0') %>
+							<% else %>
+								<% modified_date = modified_date + (i+1).to_s %>
+							<% end %>
+							<tr>
+					        	<th><%=i+1%></th>
+					        	<td><%=incident%></td>
+					        	<td><%= link_to "Go", {:controller => "gallery", :action => "index", :search_motiondetection => '1', :search => "#{modified_date}"} %></td>
+							</tr>
+					<% end %>
+				<% end%>
+		  </tbody>
+		</table>
+	<% else %>
+		<div id="no-data">No data for the selected month.</div>
+	<% end %>
+</div>

@@ -1,17 +1,14 @@
 class RubytestController < ApplicationController
   
   before_filter :authenticate_user
-  
-  def index
-        
-  end
+  before_filter :check_for_mobile
   
   def left
     board.rotateLeft    
     
     respond_to do | format |
-        format.html   { redirect_to index_path }
-        format.js { }
+        format.html
+        format.js {  }
       end
   end
   
@@ -19,7 +16,7 @@ class RubytestController < ApplicationController
     board.rotateRight
     
     respond_to do | format |
-        format.html   { redirect_to index_path }
+        format.html
         format.js {  }
       end
   end
@@ -35,8 +32,8 @@ class RubytestController < ApplicationController
     end
     
     respond_to do | format |
-        format.html   { redirect_to index_path }
-        format.js {  }
+        format.html
+        format.js
       end
   end
  
@@ -85,9 +82,13 @@ class RubytestController < ApplicationController
       
     end
     
-    respond_to do | format |
+    if mobile_device?
+      redirect_to home_path
+    else
+      respond_to do |format|
         format.html
         format.js
+      end
     end
     
   end
@@ -122,10 +123,15 @@ class RubytestController < ApplicationController
       @button_label = "Close Motion"
     end
     
-    respond_to do | format |
+    if mobile_device?
+      redirect_to home_path
+    else
+      respond_to do |format|
         format.html
         format.js
+      end
     end
+        
     
   end
   

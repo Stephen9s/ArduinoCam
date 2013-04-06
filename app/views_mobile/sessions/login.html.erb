@@ -1,0 +1,7 @@
+<%= form_tag(:action => 'login_attempt') do %>
+	<label for="username">Username</label>
+	<%= text_field_tag :username_or_email %>
+	<label for="Password">Password</label>
+	<%= password_field_tag :login_password %>
+	<%= submit_tag "Log in" , 'type' => 'submit', 'value' => 'Login' %>
+<% end %>

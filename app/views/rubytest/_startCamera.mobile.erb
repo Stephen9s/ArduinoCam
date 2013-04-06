@@ -1,0 +1,6 @@
+<%= @status %>
+<% if @pid_now_exists == true %>
+	<%= button_to @button_label, {:controller => "rubytest", :action => "closeCamera"}, :method => "put", :remote => true, :class => 'button' %>
+<% else %>
+	<%= button_to @button_label, {:controller => "rubytest", :action => "startCamera"}, :method => "put", :remote => true, :class => 'button' %>
+<% end %>
