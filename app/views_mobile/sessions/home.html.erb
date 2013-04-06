@@ -2,22 +2,110 @@
  
 	$(document).ready(function() {
 		setInterval(refreshImage, 3000);
+		
+		if ($('#turn-left').length) {
+			$('#turn-left').click(function() {
+			    $.ajax({
+			      async: false,
+			      url: "/rubytest/left.json",
+			      dataType:"json",
+			      success: function(data) {
+			        $('div#message').html(data[0]['message']);
+			      }
+			    });
+			});
+		}
+		
+		if ($('#turn-right').length) {
+			$('#turn-right').click(function() {
+			    $.ajax({
+			      async: false,
+			      url: "/rubytest/right.json",
+			      dataType:"json",
+			      success: function(data) {
+			        $('div#message').html(data[0]['message']);
+			      }
+			    });
+			});
+		}
+		
+		if ($('#close-connection').length) {
+			$('#close-connection').click(function() {
+			    $.ajax({
+			      async: false,
+			      url: "/rubytest/close.json",
+			      dataType:"json",
+			      success: function(data) {
+			        $('div#message').html(data[0]['message']);
+			      }
+			    });
+			});
+		}
+		
+		if ($('#startCamera').length) {
+			$('#startCamera').on("click", startCamera);
+		}		
+		
+		if ($('#closeCamera').length) {
+			$('#closeCamera').on("click", closeCamera);
+		}
+		
+		
+		
 	});
 	
 	function refreshImage() {
 		$('div.image').load('rubytest/refreshSnapshot');
+	}
+	
+	function startCamera() {
+	    $.ajax({
+	      async: false,
+	      url: "/rubytest/startCamera.json",
+	      dataType:"json",
+	      success: function(data) {
+	      	if(data[0]['label'] === "Close Camera") {
+	      		$('div#camera_controls').html(data[0]['status'] + "</br><a href='#' id='closeCamera' data-role='button'>" + data[0]['label'] + "</a>");
+	      		$( "#closeCamera" ).buttonMarkup( "refresh" );
+	      		document.getElementById('closeCamera').addEventListener('click', closeCamera);
+	      	} else {		      		
+	      		$('div#camera_controls').html(data[0]['status'] + "</br><a href='#' id='startCamera' data-role='button'>" + data[0]['label'] + "</a>");
+	      		$( "#startCamera" ).buttonMarkup( "refresh" );
+	      		document.getElementById('startCamera').addEventListener('click', startCamera);
+	      	}
+	      }
+	    });
+	}
+	
+	function closeCamera() {
+	    $.ajax({
+	      async: false,
+	      url: "/rubytest/closeCamera.json",
+	      dataType:"json",
+	      success: function(data) {
+	      	if(data[0]['label'] === "Close Camera") {
+	      		$('div#camera_controls').html(data[0]['status'] + "</br><a href='#' id='closeCamera' data-role='button'>" + data[0]['label'] + "</a>");
+	      		$( "#closeCamera" ).buttonMarkup( "refresh" );
+	      		document.getElementById('closeCamera').addEventListener('click', closeCamera);
+	      	} else {			      		
+	      		$('div#camera_controls').html(data[0]['status'] + "</br><a href='#' id='startCamera' data-role='button'>" + data[0]['label'] + "</a>");
+	      		$( "#startCamera" ).buttonMarkup( "refresh" );
+	      		document.getElementById('startCamera').addEventListener('click', startCamera);
+	      	}
+	      }
+	    });
 	}
   	
 </script>
 
 <div class="image"></div>
 		<div id="message"></div>
-		<div id="camera_container">
+		<div id="camera_controls">
 			<%= @status %>
 			<% if @pid_exists == true %>
-				<%= button_to @button_label, {:controller => "rubytest", :action => "closeCamera"}, :method => "put", :remote => true, "data-role" => 'button', :id => "closeCamera" %>
+				<a href="#" id="closeCamera" data-role="button">Close Camera</a>
 			<% else %>
-				<%= button_to @button_label, {:controller => "rubytest", :action => "startCamera"}, :method => "put", :remote => true, "data-role" => 'button', :id => "startCamera" %>
+				<a href="#" id="startCamera" data-role="button">Start Camera</a>
 			<% end%>
 		</div>
 		<div id="arduino_controller">
@@ -25,9 +113,11 @@
 				"Arduino not attached!"
 			<% else %>
 				<%= @board %>
-				<%= button_to "<<", {:controller => "rubytest", :action => "left"}, :method => "put", :remote => true, :id => 'turn-left'  %>
-				<%= button_to ">>", {:controller => "rubytest", :action => "right"}, :method => "put", :remote => true, :id => 'turn-right' %>
-				<%= button_to "DC", {:controller => "rubytest", :action => "close"}, :method => "put", :remote => true, :id => 'close-connection' %>
+				<div data-role="controlgroup" data-type="horizontal">
+					<a href="#" id="turn-left" data-role="button">Left</a>
+					<a href="#" id="close-connection" data-role="button">Close</a>
+					<a href="#" id="turn-right" data-role="button">Right</a>
+				</div>
 			<% end %>
 		</div>
 <script>

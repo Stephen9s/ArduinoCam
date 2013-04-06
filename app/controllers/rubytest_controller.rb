@@ -6,19 +6,37 @@ class RubytestController < ApplicationController
   def left
     board.rotateLeft    
     
-    respond_to do | format |
+    message = ["message" => "Turning left."]
+    
+    if mobile_device?
+      respond_to do | format |
+        format.json { render :json => message }
+      end
+    else      
+      respond_to do | format |
         format.html
         format.js {  }
       end
+    end
+    
   end
   
   def right
     board.rotateRight
     
-    respond_to do | format |
+    message = ["message" => "Turning right."]
+    
+    if mobile_device?
+      respond_to do | format |
+        format.json { render :json => message }
+      end
+    else      
+      respond_to do | format |
         format.html
         format.js {  }
       end
+    end
+    
   end
   
   def close
@@ -31,10 +49,19 @@ class RubytestController < ApplicationController
       board = nil
     end
     
-    respond_to do | format |
-        format.html
-        format.js
+    message = ["message" => "Connection closed."]
+    
+    if mobile_device?
+      respond_to do | format |
+        format.json { render :json => message }
       end
+    else      
+      respond_to do | format |
+        format.html
+        format.js {  }
+      end
+    end
+    
   end
  
   
@@ -70,20 +97,24 @@ class RubytestController < ApplicationController
 
         if remove_pid_forcefully
           @status = "PID file removed forcefully."
-          @button_label = "Start Motion"  
+          @button_label = "Start Camera"  
         end
         
       else
         
         @status = "Motion gracefully destroyed."
-        @button_label = "Start Motion"
+        @button_label = "Start Camera"
         
       end
       
     end
     
+    message = [{"status" => @status, "label" => @button_label}]
+    
     if mobile_device?
-      redirect_to home_path
+      respond_to do | format |
+        format.json { render :json => message }
+      end
     else
       respond_to do |format|
         format.html
@@ -111,20 +142,24 @@ class RubytestController < ApplicationController
         pid, stdin, stdout, stderr = Open4::popen4 "pidof -s /usr/local/bin/motion"
         getpid = stdout.read.strip
         @status = "Motion started: PID #{getpid}"
-        @button_label = "Close Motion."
+        @button_label = "Close Camera"
       else
         @status = "Motion failed to start."
-        @button_label = "Start Motion"
+        @button_label = "Start Camera"
       end
       
     else
       pid = Process.pid("motion")
       @status = "Motion is already running: PID #{pid}"
-      @button_label = "Close Motion"
+      @button_label = "Close Camera"
     end
     
+    message = [{"status" => @status, "label" => @button_label}]
+    
     if mobile_device?
-      redirect_to home_path
+      respond_to do | format |
+        format.json { render :json => message }
+      end
     else
       respond_to do |format|
         format.html

@@ -8,6 +8,8 @@
 
 <script class="code" type="text/javascript">
 
+	// jQplot
+
 	var ajaxDataRenderer = function() {
 	    var ret = null;
 	    $.ajax({
@@ -72,11 +74,11 @@
 </script>
 <div id="histogram-container">
 	<%= form_tag(:action => 'index') do |f| %>
-		<div data-role="controlgroup" data-type="horizontal">
+		<fieldset data-role="controlgroup" data-type="horizontal">
 			<%= select_tag :search_month,  options_for_select(@list_of_months.collect{ |u| [u[0],u[1]] }, @selected_month )%>
 			<%= select_tag :search_year,  options_for_select(@generated_years.collect{ |u| [u,u] }, @selected_year )%>
 			<%= submit_tag "Go"%>
-		</div>
+		</fieldset>
 	<% end %>
 	<% if @snapshot_count > 0 %>
 		<div id="histogram"></div>
