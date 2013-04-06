@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
             user = User.find_by_username(username_or_email)
           end
           
+          # Major error in the logic previously used
+          # This version works: user's hashed_pass is now correctly compared to the generated hashed password from the submit form
           if user && user.hashed_pass == BCrypt::Engine.hash_secret(login_password, user.salt)
             return user
           else

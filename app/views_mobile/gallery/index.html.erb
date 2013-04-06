@@ -1,15 +1,13 @@
 <%= javascript_include_tag "klass.min.js" %>
 <%= javascript_include_tag "code.photoswipe.jquery-3.0.5.min.js" %>
-
-
 <%= stylesheet_link_tag "photoswipe.css" %>
+
 <script type="text/javascript">
 	(function(window, $, PhotoSwipe) {
 		$(document).ready(function() {
 			$("#gallery a").photoSwipe({});
 		});
 	}(window, window.jQuery, window.Code.PhotoSwipe));
-
 </script>
 <% if @snapshots.size > 0 %>
 	<ul id="gallery">

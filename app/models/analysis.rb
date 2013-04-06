@@ -1,4 +1,5 @@
 class Analysis < ActiveRecord::Base
-  # attr_accessible :title, :body
+  # Model used to access analyses table
+  # Should only have one row
   attr_accessible :year, :month
 end

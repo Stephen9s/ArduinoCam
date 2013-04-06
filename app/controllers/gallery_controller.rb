@@ -5,23 +5,28 @@ class GalleryController < ApplicationController
   
   def index  
     
+    # Default search term when loading the gallery
     @search_term = "snapshot"
     
+    # Search box sends parameters to the gallery#index and changes the @search_term
     if(params[:search] != "")
       @search_term = params[:search]
     else
       @search_term = "snapshot"
-    end
-    
+    end    
     
     # REFERENCE #
     # http://css-plus.com/2010/09/create-your-own-jquery-image-slider/
+    # Accepted search terms that'll return data are: YYYY or YYYYMM or YYYYMMDD
+    # Checkbox selected will show last 100 motion-detected images
     if (params[:search_motiondetection] == "1")
       @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp != ?', "%#{@search_term}%", ""], :order => "id desc", :limit => 100)
     else
       @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp = ?', "%#{@search_term}%", ""], :order => "id desc", :limit => 100)
     end
     
+    # Cycle through each snapshot and update the hash with the parsed year, month, day, etc.
+    # Needed for desktop versions, but not for mobile version
     @snapshots.each do |snapshot|
         snapshot.filename.slice! "/var/www/test/app/assets/images/snapshots/"
         

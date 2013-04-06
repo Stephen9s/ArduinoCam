@@ -1,5 +1,6 @@
 <script>
 
+	// Function set for when the user hovers over an image in the gallery, the larger image will be replaced
 	$(function() {
 		$(".image").hover(function() {
 			var image = $(this).attr("rel");
@@ -9,6 +10,7 @@
 	    	});
 	});
 	
+	// Code modified from http://css-plus.com/2010/09/create-your-own-jquery-image-slider/
 	$(document).ready(function() {
 		if(jQuery("#gallery").length) {
 			
@@ -19,13 +21,16 @@
 			var visibleWidth = visibleImages * imageWidth
 			var stopPosition = (visibleWidth - totalWidth)
 			
-			var multiplier = 1;
-			
-			var timer;
-			var interval = 1;
+			// Variables initialized that are used for navigating the gallery
+			// Code modified by me, Stephen Neyens
+			var multiplier = 1;			// Multiplier used to shift N number of images
+			var timer;					// Timer declared
+			var interval = 1;			// Interval is a 1-sec timer when hovering over the +1/-1 image slider
 			
 			jQuery("#gallery").width(totalWidth);
 			
+			// Multipler and interval timer reset to 1 and click() replaced with hover() so that the user
+			// can hover over "<" and shift the gallery one image to the left while hovering.
 			jQuery("#gallery-prev").hover(function() {
 				multiplier = 1;
 				interval = 1;
@@ -34,16 +39,21 @@
 				clearInterval(timer);
 			});
 			
+			// Multiplier changed to 10 (ten images)
+			// No timer used
 			jQuery("#gallery-prev-10").click(function() {
 				multiplier = 10;
 				slideLeftClick();
 			});
 			
+			// Multiplier changed to 20 (ten images)
+			// No timer used
 			jQuery("#gallery-prev-20").click(function() {
 				multiplier = 20;
 				slideLeftClick();
 			});
 			
+			// Same as gallery-prev
 			jQuery("#gallery-next").hover(function() {
 				multiplier = 1;
 				interval = 1;
@@ -52,16 +62,20 @@
 				clearInterval(timer);
 			});
 			
+			// Same as prev-10, but move right and no hover.
 			jQuery("#gallery-next-10").click(function() {
 				multiplier = 10;
 				slideRightClick();
 			});
 			
+			// Same as prev-20, but move right and no hover.
 			jQuery("#gallery-next-20").click(function() {
 				multiplier = 20;
 				slideRightClick();
 			});
 			
+			// Function called on hover() and imageWidth multiplied by the multiplier supplied
+			// slideRight() can be called and given a different multiplier, but one at a time is best
 			function slideRight() {
 				return setInterval(function() {
 					if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")) {
@@ -70,12 +84,15 @@
 				}, interval);
 			}
 			
+			// No timer used; user must click because we will provided a different multiplier (10 or 20) and shift that many images
 			function slideRightClick() {
 					if(jQuery("#gallery").position().left > stopPosition && !jQuery("#gallery").is(":animated")) {
 						jQuery("#gallery").animate({left : "-=" + imageWidth*multiplier + "px"}, {duration: 1000, easing: 'swing'});
 					}
 			}
 			
+			// Function called on hover() and imageWidth multiplied by the multiplier supplied
+			// slideLeft() can be called and given a different multiplier, but one at a time is best
 			function slideLeft() {
 				return setInterval(function() {
 					if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")) {
@@ -84,6 +101,7 @@
 				}, interval);
 			}
 			
+			// No timer used; user must click because we will provided a different multiplier (10 or 20) and shift that many images
 			function slideLeftClick() {
 					if(jQuery("#gallery").position().left < 0 && !jQuery("#gallery").is(":animated")) {
 						jQuery("#gallery").animate({left : "+=" + imageWidth*multiplier + "px"}, {duration: 1000, easing: 'swing'});

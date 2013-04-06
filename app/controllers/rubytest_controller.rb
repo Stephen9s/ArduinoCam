@@ -3,6 +3,9 @@ class RubytestController < ApplicationController
   before_filter :authenticate_user
   before_filter :check_for_mobile
   
+  # Method called by either AJAX or a direct controller/method call
+  # Rotates motor left and if it's a mobile device, render the JSON message (for AJAX)
+  # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def left
     board.rotateLeft    
     
@@ -21,6 +24,9 @@ class RubytestController < ApplicationController
     
   end
   
+  # Method called by either AJAX or a direct controller/method call
+  # Rotates motor right and if it's a mobile device, render the JSON message (for AJAX)
+  # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def right
     board.rotateRight
     
@@ -39,6 +45,9 @@ class RubytestController < ApplicationController
     
   end
   
+  # Method called by either AJAX or a direct controller/method call
+  # Closes Arduino connection and if it's a mobile device, render the JSON message (for AJAX)
+  # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def close
     if !board.nil?
       # Explicitly disable the servo
@@ -64,7 +73,7 @@ class RubytestController < ApplicationController
     
   end
  
-  
+  # Method called by jQuery to refresh the snapshot on the page
   def refreshSnapshot
     image = Snapshot.last
     @snapshot = image.filename
@@ -72,21 +81,19 @@ class RubytestController < ApplicationController
     render :partial => "rubytest/refreshSnapshot"
   end
   
+  # Method called by either AJAX or a direct controller/method call
+  # If the camera is on, close it. Return JSON message if mobile.
+  # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def closeCamera
     # Initial check for motion.pid file
     pid_exists = File.exist?("/var/www/test/pid/motion.pid")
     
     if pid_exists
+      
       # If PID file exists, destroy process first so that it has a graceful quit
       destroy_process = system("killall motion")
-      #pid, stdin, stdout, stderr = Open4::popen4 "killall motion"
-      # Check again if the motion.pid exists
-      # If it does, then process wasn't killed gracefully
-      # Potential for infinite loop here
-      #while (pid_still_exists = File.exist?("/var/www/test/pid/motion.pid"))
-        # Loop until PID no longer exists?
-      #end
-      
+
+      # Determined that Motion required < 3.0 seconds after being killed to remove the PID file that it created
       sleep 3.0
       
       pid_still_exists = File.exist?("/var/www/test/pid/motion.pid")
@@ -98,17 +105,15 @@ class RubytestController < ApplicationController
         if remove_pid_forcefully
           @status = "PID file removed forcefully."
           @button_label = "Start Camera"  
-        end
-        
-      else
-        
+        end        
+      else        
         @status = "Motion gracefully destroyed."
-        @button_label = "Start Camera"
-        
+        @button_label = "Start Camera"        
       end
       
     end
     
+    # Used solely for JSON/mobile view
     message = [{"status" => @status, "label" => @button_label}]
     
     if mobile_device?
@@ -124,6 +129,9 @@ class RubytestController < ApplicationController
     
   end
   
+  # Method called by either AJAX or a direct controller/method call
+  # If the camera is off, start it. Return JSON message if mobile.
+  # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def startCamera
     # Initial check for motion.pid file
     pid_exists = File.exist?("/var/www/test/pid/motion.pid")
@@ -131,14 +139,16 @@ class RubytestController < ApplicationController
     # Ensure that motion is NOT running
     if !pid_exists
       
+      # Start Motion (-m option disables motion detection)
       start = system("/usr/local/bin/motion")
-      #pid, stdin, stdout, stderr = Open4::popen4 "/usr/local/bin/motion -m"
       
+      # Sleep for 1.1 seconds to give Motion enough time to create PID file
       sleep 1.1
       
       @pid_now_exists = File.exist?("/var/www/test/pid/motion.pid")
       
       if @pid_now_exists
+        # To avoid zombie processes, use simple system() call and don't print out PID; there is no return data for a system() call
         pid, stdin, stdout, stderr = Open4::popen4 "pidof -s /usr/local/bin/motion"
         getpid = stdout.read.strip
         @status = "Motion started: PID #{getpid}"
@@ -154,6 +164,7 @@ class RubytestController < ApplicationController
       @button_label = "Close Camera"
     end
     
+    # Used solely for JSON/mobile view
     message = [{"status" => @status, "label" => @button_label}]
     
     if mobile_device?
