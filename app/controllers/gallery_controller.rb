@@ -44,4 +44,15 @@ class GalleryController < ApplicationController
     
   end
   
+  def removePhoto
+    
+    @photo_removed = params["photoData"]["url"]
+    
+    message = ["removed" => @photo_removed]
+    
+    respond_to do |format|
+      format.json { render :json => message }
+    end
+  end
+  
 end

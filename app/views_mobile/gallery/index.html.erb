@@ -6,6 +6,19 @@
 	(function(window, $, PhotoSwipe) {
 		$(document).ready(function() {
 			$("#gallery a").photoSwipe({});
+			$( "#gallery a" ).on( 'taphold', tapholdHandler );
+ 
+            // Callback function references the event target and adds the 'tap' class to it
+            function tapholdHandler( event ) {
+            		// console.log(event); used this to look at object contents to retrieve the information that I needed
+            		var remove_photo = confirm("Remove " + $(event.target).attr("alt") + "?");
+            		var href = $(event.target).attr("alt");
+        			if (remove_photo == true) {        				
+        				// Removes from list.
+        				$(this).closest('li').remove();
+        			}  			
+        			
+        		}
 		});
 	}(window, window.jQuery, window.Code.PhotoSwipe));
 </script>

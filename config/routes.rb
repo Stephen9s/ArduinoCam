@@ -60,6 +60,7 @@ ArduinoSecuCam::Application.routes.draw do
   #match "/webcam/cameraOps" => "webcam#cameraOps"
   match "/webcam/closeCamera" => "webcam#closeCamera"
   match "/webcam/startCamera" => "webcam#startCamera"
+  match "/gallery/removePhoto" => "gallery#removePhoto"
   
   match "/gallery/index" => "gallery#index"
   
