@@ -5,7 +5,7 @@ $(document).ready(
     	});
     
     function refreshImage() {
-    	$('.image').load('/rubytest/refreshSnapshot');
+    	$('.image').load('/webcam/refreshSnapshot');
     }
     
 </script>
@@ -13,7 +13,7 @@ $(document).ready(
 <div id="arduinocam_container">
 	<div id="image-wrapper">
 		<div class="image">
-			<%= render partial: 'rubytest/refreshSnapshot' %>
+			<%= render partial: 'webcam/refreshSnapshot' %>
 		</div>
 	</div>
 	<div id="arduinocam-container">
@@ -26,9 +26,9 @@ $(document).ready(
 				"Arduino not attached!"
 			<% else %>
 				<%= @board %>
-				<%= button_to "<<", {:controller => "rubytest", :action => "left"}, :method => "put", :remote => true, :id => 'turn-left'  %>
-				<%= button_to ">>", {:controller => "rubytest", :action => "right"}, :method => "put", :remote => true, :id => 'turn-right' %>
-				<%= button_to "DC", {:controller => "rubytest", :action => "close"}, :method => "put", :remote => true, :id => 'close-connection' %>
+				<%= button_to "<<", {:controller => "webcam", :action => "left"}, :method => "put", :remote => true, :id => 'turn-left'  %>
+				<%= button_to ">>", {:controller => "webcam", :action => "right"}, :method => "put", :remote => true, :id => 'turn-right' %>
+				<%= button_to "DC", {:controller => "webcam", :action => "close"}, :method => "put", :remote => true, :id => 'close-connection' %>
 			<% end %>
 		</div>
 	</div>

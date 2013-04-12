@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RubytestControllerTest < ActionController::TestCase
+class WebcamControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end

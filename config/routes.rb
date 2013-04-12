@@ -53,13 +53,13 @@ ArduinoSecuCam::Application.routes.draw do
   
   resources :snapshots
 
-  match "/rubytest/left" => "rubytest#left"
-  match "/rubytest/right" => "rubytest#right"
-  match "/rubytest/close" => "rubytest#close"
-  match "/rubytest/refreshSnapshot" => "rubytest#refreshSnapshot"
-  #match "/rubytest/cameraOps" => "rubytest#cameraOps"
-  match "/rubytest/closeCamera" => "rubytest#closeCamera"
-  match "/rubytest/startCamera" => "rubytest#startCamera"
+  match "/webcam/left" => "webcam#left"
+  match "/webcam/right" => "webcam#right"
+  match "/webcam/close" => "webcam#close"
+  match "/webcam/refreshSnapshot" => "webcam#refreshSnapshot"
+  #match "/webcam/cameraOps" => "webcam#cameraOps"
+  match "/webcam/closeCamera" => "webcam#closeCamera"
+  match "/webcam/startCamera" => "webcam#startCamera"
   
   match "/gallery/index" => "gallery#index"
   

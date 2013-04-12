@@ -1,4 +1,4 @@
-class RubytestController < ApplicationController
+class WebcamController < ApplicationController
   
   before_filter :authenticate_user
   before_filter :check_for_mobile
@@ -78,7 +78,7 @@ class RubytestController < ApplicationController
     image = Snapshot.last
     @snapshot = image.filename
     @snapshot.slice! "/var/www/test/app/assets/images/snapshots/"
-    render :partial => "rubytest/refreshSnapshot"
+    render :partial => "webcam/refreshSnapshot"
   end
   
   # Method called by either AJAX or a direct controller/method call
