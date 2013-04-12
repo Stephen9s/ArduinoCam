@@ -139,6 +139,38 @@ class RubytestController < ApplicationController
     # Ensure that motion is NOT running
     if !pid_exists
       
+      # Determine which video camera file exists; should only ever be one of these.
+      video_ports = ['/dev/video0', '/dev/video1', '/dev/video2', '/dev/video3', '/dev/video4']
+      video_port_exists = nil
+      video_port_available = nil
+      video_port_available = nil
+      video_ports.each do |p|
+        video_port_exists = File.exist?(p)
+        if video_port_exists
+          video_port_available = p
+          break
+        end      
+      end
+      
+      # Pid folder contains symlink to thread1.conf that contains the location of the video device
+      symlink_to_thread_conf = "/var/www/test/pid/thread1.conf"
+      
+      # Ensure that the symlink exists
+      if (File.exist?(symlink_to_thread_conf))
+        
+        # The configuration file contains "videodevice /dev/video0" by default
+        # Every time I start the camera, if the videodevice that's saved in the configuration does not match what the system has
+        # Then overwrite the file with the correct filename
+        videodevice_in_thread_conf = File.open(symlink_to_thread_conf).first
+        videodevice_in_thread_conf.slice! "videodevice "
+        
+        if videodevice_in_thread_conf != video_port_available
+          File.open(symlink_to_thread_conf, 'w') {
+            |f| f.write("videodevice #{video_port_available}")
+          }
+        end
+      end
+      
       # Start Motion (-m option disables motion detection)
       start = system("/usr/local/bin/motion")
       

@@ -12,7 +12,7 @@
 <div data-role="page">
 
 	<div data-role="header" data-position="fixed">
-		<%= link_to "Home", {:controller => 'sessions', :action => 'home'} %>
+		<% if current_user %><%= link_to "Home", {:controller => 'sessions', :action => 'home'} %><%end%>
 			<h1>Arduino Cam</h1>
 	</div><!-- /header -->
 

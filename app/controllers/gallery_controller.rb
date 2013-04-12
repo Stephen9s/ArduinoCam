@@ -22,7 +22,8 @@ class GalleryController < ApplicationController
     if (params[:search_motiondetection] == "1")
       @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp != ?', "%#{@search_term}%", ""], :order => "id desc", :limit => 100)
     else
-      @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp = ?', "%#{@search_term}%", ""], :order => "id desc", :limit => 100)
+      # Default gallery shows snapshots as well as motion-detected images
+      @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ?', "%#{@search_term}%"], :order => "id desc", :limit => 100)
     end
     
     # Cycle through each snapshot and update the hash with the parsed year, month, day, etc.
