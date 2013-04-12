@@ -76,8 +76,13 @@ class WebcamController < ApplicationController
   # Method called by jQuery to refresh the snapshot on the page
   def refreshSnapshot
     image = Snapshot.last
-    @snapshot = image.filename
-    @snapshot.slice! "/var/www/arduinosecucam/app/assets/images/snapshots/"
+    @image_exists = File.exist?(image.filename)
+    if @image_exists
+      @snapshot = image.filename
+      @snapshot.slice! "/var/www/arduinosecucam/app/assets/images/snapshots/"
+    else
+      @error = "Image does not exist."
+    end
     render :partial => "webcam/refreshSnapshot"
   end
   

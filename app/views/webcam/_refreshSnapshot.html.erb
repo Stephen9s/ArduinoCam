@@ -1,1 +1,5 @@
-<%= image_tag(@snapshot) %>
+<% if @image_exists %>
+	<%= image_tag(@snapshot) %>
+<% else %>
+	<%= @error %>
+<% end %>
