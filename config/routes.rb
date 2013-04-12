@@ -1,4 +1,4 @@
-Test::Application.routes.draw do
+ArduinoSecuCam::Application.routes.draw do
   get "users/new"
 
   # The priority is based upon order of creation:

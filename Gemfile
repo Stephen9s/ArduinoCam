@@ -10,6 +10,7 @@ gem 'serialport'
 gem 'open4'
 gem 'arduino', "0.4.1"
 gem 'json'
+#gem 'rails_refactor'
 #gem 'mobile-fu'
 
 # Gems used only for assets and not required

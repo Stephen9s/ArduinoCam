@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Test::Application.config.secret_token = '04405525d51e261697949a9567ecf1469162264aa2d9625493b259763e6ad67d6be84a77bf42db63e6f22edb40e3223556dd50b10a61da03e112daa261a9ded6'
+ArduinoSecuCam::Application.config.secret_token = 'f351698d314c0913f93db82d6f645972e9790c7b3b25a98b3a4d44b615703cc2e84995c6067174d361950850253712a18de5cd56c5b019dc0ee025f8c004ce16'
