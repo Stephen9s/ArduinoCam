@@ -77,7 +77,7 @@ class WebcamController < ApplicationController
   def refreshSnapshot
     image = Snapshot.last
     @snapshot = image.filename
-    @snapshot.slice! "/var/www/test/app/assets/images/snapshots/"
+    @snapshot.slice! "/var/www/arduinosecucam/app/assets/images/snapshots/"
     render :partial => "webcam/refreshSnapshot"
   end
   
@@ -86,7 +86,7 @@ class WebcamController < ApplicationController
   # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def closeCamera
     # Initial check for motion.pid file
-    pid_exists = File.exist?("/var/www/test/pid/motion.pid")
+    pid_exists = File.exist?("/var/www/arduinosecucam/pid/motion.pid")
     
     if pid_exists
       
@@ -96,11 +96,11 @@ class WebcamController < ApplicationController
       # Determined that Motion required < 3.0 seconds after being killed to remove the PID file that it created
       sleep 3.0
       
-      pid_still_exists = File.exist?("/var/www/test/pid/motion.pid")
+      pid_still_exists = File.exist?("/var/www/arduinosecucam/pid/motion.pid")
       
       if pid_still_exists
         # Remove the file if it exists
-        remove_pid_forcefully = File.delete("/var/www/test/pid/motion.pid")
+        remove_pid_forcefully = File.delete("/var/www/arduinosecucam/pid/motion.pid")
 
         if remove_pid_forcefully
           @status = "PID file removed forcefully."
@@ -134,7 +134,7 @@ class WebcamController < ApplicationController
   # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def startCamera
     # Initial check for motion.pid file
-    pid_exists = File.exist?("/var/www/test/pid/motion.pid")
+    pid_exists = File.exist?("/var/www/arduinosecucam/pid/motion.pid")
     
     # Ensure that motion is NOT running
     if !pid_exists
@@ -153,7 +153,7 @@ class WebcamController < ApplicationController
       end
       
       # Pid folder contains symlink to thread1.conf that contains the location of the video device
-      symlink_to_thread_conf = "/var/www/test/pid/thread1.conf"
+      symlink_to_thread_conf = "/var/www/arduinosecucam/pid/thread1.conf"
       
       # Ensure that the symlink exists
       if (File.exist?(symlink_to_thread_conf))
@@ -177,7 +177,7 @@ class WebcamController < ApplicationController
       # Sleep for 1.1 seconds to give Motion enough time to create PID file
       sleep 1.1
       
-      @pid_now_exists = File.exist?("/var/www/test/pid/motion.pid")
+      @pid_now_exists = File.exist?("/var/www/arduinosecucam/pid/motion.pid")
       
       if @pid_now_exists
         # To avoid zombie processes, use simple system() call and don't print out PID; there is no return data for a system() call

@@ -29,7 +29,7 @@ class GalleryController < ApplicationController
     # Cycle through each snapshot and update the hash with the parsed year, month, day, etc.
     # Needed for desktop versions, but not for mobile version
     @snapshots.each do |snapshot|
-        snapshot.filename.slice! "/var/www/test/app/assets/images/snapshots/"
+        snapshot.filename.slice! "/var/www/arduinosecucam/app/assets/images/snapshots/"
         
         # The regex finds the string between the first '-' and second '-' that's present in the filename
         # From here, I extract the time information and display it on the page

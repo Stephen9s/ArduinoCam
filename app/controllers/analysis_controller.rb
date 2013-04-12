@@ -59,7 +59,7 @@ class AnalysisController < ApplicationController
       if snapshots.size > 0
         
         snapshots.each do |snapshot|
-          snapshot.filename.slice! "/var/www/test/app/assets/images/snapshots/"
+          snapshot.filename.slice! "/var/www/arduinosecucam/app/assets/images/snapshots/"
             
             # The regex finds the string between the first '-' and second '-' that's present in the filename
             # From here, I extract the time information and display it on the page

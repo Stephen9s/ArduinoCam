@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
     
     # Home automatically loaded after login and returning to main screen
     # If Motion is currently running, change the button that is displayed (see view code)
-    @pid_exists = File.exist?("/var/www/test/pid/motion.pid")
+    @pid_exists = File.exist?("/var/www/arduinosecucam/pid/motion.pid")
     
     if @pid_exists
       @status = "Motion is running."
