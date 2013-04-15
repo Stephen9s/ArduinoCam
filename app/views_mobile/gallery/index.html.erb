@@ -11,9 +11,24 @@
             // Callback function references the event target and adds the 'tap' class to it
             function tapholdHandler( event ) {
             		// console.log(event); used this to look at object contents to retrieve the information that I needed
-            		var remove_photo = confirm("Remove " + $(event.target).attr("alt") + "?");
+            		var remove_photo = confirm("Remove " + $(event.target).attr("data-img-id") + "?");
             		var href = $(event.target).attr("alt");
-        			if (remove_photo == true) {        				
+            		var id_of_img = $(event.target).attr("data-img-id");
+        			if (remove_photo == true) {     
+        				
+        				// GET request with routes update allows me to delete file safely
+        				// Originally had filename being sent, but it's best if the ID is used because of Rails' ActiveRecord abstraction
+        				jQuery.ajax({
+					        type: "GET",
+					        url: "/gallery/removePhoto/"+id_of_img+"",
+					        success: function(msg){
+					        	alert("Successful");
+					        },
+				            failure: function() {
+				                alert("Unsuccessful");
+				            }
+						});
+        				   				
         				// Removes from list.
         				$(this).closest('li').remove();
         			}  			
@@ -25,8 +40,8 @@
 <% if @snapshots.size > 0 %>
 	<ul id="gallery">
 		<% @snapshots.each_with_index do |snapshot, index| %>          
-				<li><a href="/assets/<%= snapshot.filename %>" rel="external">
-					<%= image_tag(snapshot.filename, :width => 160, :height => 120)%>
+				<li><a href="/assets/<%= snapshot.filename %>" rel="external" data-remote="true" method="post" >
+					<%= image_tag(snapshot.filename, :width => 160, :height => 120, "data-img-id" => snapshot.id)%>
 				</a></li>
 		<% end %>
 	</ul>

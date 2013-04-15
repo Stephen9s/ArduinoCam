@@ -8,6 +8,34 @@
 			$('#image').html('<img src="' + image + '" width="320" height="240"/>');
 			return false;
 	    	});
+	    $( ".image" ).click( removePhotoHandler );
+ 
+            // Callback function references the event target and adds the 'tap' class to it
+            function removePhotoHandler( event ) {
+            		// console.log(event); used this to look at object contents to retrieve the information that I needed
+            		var remove_photo = confirm("Remove " + $(event.target).attr("data-img-id") + "?");
+            		var href = $(event.target).attr("alt");
+            		var id_of_img = $(event.target).attr("data-img-id");
+        			if (remove_photo == true) {     
+        				
+        				// GET request with routes update allows me to delete file safely
+        				// Originally had filename being sent, but it's best if the ID is used because of Rails' ActiveRecord abstraction
+        				jQuery.ajax({
+					        type: "GET",
+					        url: "/gallery/removePhoto/"+id_of_img+"",
+					        success: function(msg){
+					        	alert("Successful");
+					        },
+				            failure: function() {
+				                alert("Unsuccessful");
+				            }
+						});
+        				   				
+        				// Removes from list.
+        				$(this).closest('li').remove();
+        			}  			
+        			
+        		}
 	});
 	
 	// Code modified from http://css-plus.com/2010/09/create-your-own-jquery-image-slider/
@@ -122,7 +150,7 @@
 				<% @snapshots.each_with_index do |snapshot, index| %>          
 		    		<li>
 		    			<a href="#" rel="/assets/<%= snapshot.filename %>" class="image">
-		    				<%= image_tag(snapshot.filename, :width => 160, :height => 120)%>
+		    				<%= image_tag(snapshot.filename, :width => 160, :height => 120, "data-img-id" => snapshot.id)%>
 		    			</a>
 		    			<br />
 		    			<div id="timestamp">

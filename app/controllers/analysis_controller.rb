@@ -53,7 +53,7 @@ class AnalysisController < ApplicationController
 
     # Snapshots are selected based on year and month
     # If snapshots exist, parse them for the day and refer to the index in the @count and increment for every snapshot that exists for the particular day
-      snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['event_time_stamp LIKE ?', "%#{@yearmonth}%"], :order => "id desc")
+      snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename NOT LIKE "%-snapshot%" AND event_time_stamp LIKE ?', "%#{@yearmonth}%"], :order => "id desc")
       @snapshot_count = snapshots.size
       
       if snapshots.size > 0

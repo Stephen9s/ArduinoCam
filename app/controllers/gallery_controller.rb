@@ -18,12 +18,12 @@ class GalleryController < ApplicationController
     # REFERENCE #
     # http://css-plus.com/2010/09/create-your-own-jquery-image-slider/
     # Accepted search terms that'll return data are: YYYY or YYYYMM or YYYYMMDD
-    # Checkbox selected will show last 100 motion-detected images
+    # Checkbox selected will show last 100 snapshots only
     if (params[:search_motiondetection] == "1")
-      @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp != ?', "%#{@search_term}%", ""], :order => "id desc", :limit => 100)
+      @snapshots = Snapshot.find(:all, :select => "id,filename,event_time_stamp", :conditions => ['filename LIKE ? and event_time_stamp != ?', "%#{@search_term}%-snapshot%", ""], :order => "id desc", :limit => 100)
     else
       # Default gallery shows snapshots as well as motion-detected images
-      @snapshots = Snapshot.find(:all, :select => "filename,event_time_stamp", :conditions => ['filename LIKE ?', "%#{@search_term}%"], :order => "id desc", :limit => 100)
+      @snapshots = Snapshot.find(:all, :select => "id,filename,event_time_stamp", :conditions => ['filename LIKE ?', "%#{@search_term}%"], :order => "id desc", :limit => 100)
     end
     
     # Cycle through each snapshot and update the hash with the parsed year, month, day, etc.
@@ -46,13 +46,17 @@ class GalleryController < ApplicationController
   
   def removePhoto
     
-    @photo_removed = params["photoData"]["url"]
-    
-    message = ["removed" => @photo_removed]
-    
-    respond_to do |format|
-      format.json { render :json => message }
+    photo_id = params["id"]
+    snapshot = Snapshot.find(photo_id)
+    if File.exist?(snapshot.filename)
+      delete_file = File.delete(snapshot.filename)
+      if delete_file
+        snapshot.destroy
+      end
     end
+    
+    # Without render :nothing => true, Rails will throw a 500 error because the layout doesn't exist
+    render :nothing => true
   end
   
 end
