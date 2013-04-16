@@ -1,5 +1,5 @@
-Original arduino.pde:<br>
-https://github.com/HashNuke/arduino<br><br>
+Original arduino.pde:
+https://github.com/HashNuke/arduino
 
 <b>Arduino Software</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.pde<br>
 <b>Arduino Ruby Gem</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.rb<br><br>
