@@ -4,8 +4,6 @@
 <%= javascript_include_tag "jqplot.pointLabels.min.js" %>
 <%= javascript_include_tag "jqplot.highlighter.js" %>
 <%= javascript_include_tag "jqplot.json2.min.js" %>
-
-
 <%= stylesheet_link_tag "jquery.jqplot.min.css" %>
 
 <script class="code" type="text/javascript">
@@ -97,7 +95,7 @@
 							<% end %>
 				        	<div class="col"><%=i+1%></div>
 				        	<div class="col"><%=incident%></div>
-				        	<div class="col"><%= link_to "Go", {:controller => "gallery", :action => "index", :search_motiondetection => '1', :search => "#{modified_date}"} %></div>
+				        	<div class="col"><%= link_to "Go", {:controller => "gallery", :action => "index", :search => "#{modified_date}"} %></div>
 				   		</div>
 					<% end %>
 				<% end%>

@@ -100,7 +100,7 @@
 							<tr>
 					        	<th><%=i+1%></th>
 					        	<td><%=incident%></td>
-					        	<td><%= link_to "Go", {:controller => "gallery", :action => "index", :search_motiondetection => '1', :search => "#{modified_date}"} %></td>
+					        	<td><%= link_to "Go", {:controller => "gallery", :action => "index", :search => "#{modified_date}"} %></td>
 							</tr>
 					<% end %>
 				<% end%>
