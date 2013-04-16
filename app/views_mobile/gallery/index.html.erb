@@ -6,13 +6,12 @@
 	(function(window, $, PhotoSwipe) {
 		$(document).ready(function() {
 			$("#gallery a").photoSwipe({});
-			$( "#gallery a" ).on( 'taphold', tapholdHandler );
+			$( "#gallery a" ).on( 'swipeleft', tapholdHandler );
  
             // Callback function references the event target and adds the 'tap' class to it
             function tapholdHandler( event ) {
             		// console.log(event); used this to look at object contents to retrieve the information that I needed
-            		var remove_photo = confirm("Remove " + $(event.target).attr("data-img-id") + "?");
-            		var href = $(event.target).attr("alt");
+            		var remove_photo = confirm("Remove " + $(event.target).attr("alt") + "?");
             		var id_of_img = $(event.target).attr("data-img-id");
         			if (remove_photo == true) {     
         				
@@ -22,10 +21,10 @@
 					        type: "GET",
 					        url: "/gallery/removePhoto/"+id_of_img+"",
 					        success: function(msg){
-					        	alert("Successful");
+					        	alert("Image deleted.");
 					        },
 				            failure: function() {
-				                alert("Unsuccessful");
+				                alert("Image could not be deleted.");
 				            }
 						});
         				   				
