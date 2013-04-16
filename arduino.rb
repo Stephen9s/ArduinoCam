@@ -130,7 +130,13 @@ class Arduino
 
     def enableServo
 	# '/'.chr = 47, and 47 - 48 = -1
-	sendData(47)	
+	sendData('/')	
+    end
+
+
+    def disableServo
+	# '/'.chr = 46, and 46 - 48 = -2
+	sendData('.')	
     end
 
     def rotateLeft

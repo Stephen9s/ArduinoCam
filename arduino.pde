@@ -168,11 +168,19 @@ void setupPins()
     cmd = int(readData()) - 48;
 
     if (cmd == -1) {
-	// default pin 9
+
+	if(servo.attached())
+		servo.detach();
+
 	servo.attach(9);
-	// set to 90 degrees
 	pos = 90;
 	servo.write(pos);
+
+    } else if (cmd == -2) {
+	if(servo.attached()) {
+                servo.write(90);
+		servo.detach();
+        }
     } else {
         for(int i=0; i<cmd; i++) {
             cmd_arg[0] = int(readData()) - 48;
