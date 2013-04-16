@@ -1,10 +1,13 @@
 Original arduino.pde:
 https://github.com/HashNuke/arduino
 
-<b>Arduino Software</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.pde<br>
-<b>Arduino Ruby Gem</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.rb<br><br>
+<b>Arduino Software</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.pde
 
-<b>Desktop Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views<br>
-<b>Mobile Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views_mobile<br><br>
+<b>Arduino Ruby Gem</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.rb
+
+
+<b>Desktop Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views
+
+<b>Mobile Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views_mobile
 
 <b>Controllers</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/controllers
