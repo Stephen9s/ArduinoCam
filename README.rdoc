@@ -1,6 +1,13 @@
 Original arduino.pde:
 https://github.com/HashNuke/arduino
 
-My 'arduino.pde' is in BETA, but allows the usage of the servo motor.
+<b>Custom Arduino Software</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.pde
 
-I pulled the source for the arduino-0.4 gem and modified it myself to what you see in 'arduino.rb'.
+<b>Custom Arduino Ruby Gem</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.rb
+
+
+<b>Desktop Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views
+
+<b>Mobile Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views_mobile
+
+<b>Controllers</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/controllers
