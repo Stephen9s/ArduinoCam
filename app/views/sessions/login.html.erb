@@ -1,11 +1,12 @@
-<% @page_title = "UserAuth | Login" %>
-<div class="sign_form">
+<div id="signup-title">
 	<h1>Welcome to Arduino Secucam!</h1>
 	<% if flash[:notice] %>
-      <p class="notice">
-      	<%= flash[:notice] %>
-      </p>
-    <% end %>
+      		<p class="notice">
+      		<%= flash[:notice] %>
+     		 </p>
+    	<% end %>
+</div>
+<div id="signup-form">
     <table>
     	<tr>
     		<%= form_tag(:action => 'login_attempt') do %>
@@ -17,12 +18,9 @@
     		<td class="input"><%= password_field_tag :login_password %></td>
     	</tr>
     	<tr>
-    		<td><%= submit_tag "Log in" , :class => "button" %></td>
+		<td></td>
+    		<td style="text-align: right;"><%= submit_tag "Log in" , :class => "button" %></td>
     		<% end %>
-    	</tr>
-    	<tr>
-    		
-    		<td><%= button_to "Sign up!", {:controller => "users", :action => "new"}, :class => "button" %></td>
     	</tr>
     </table>
 </div>

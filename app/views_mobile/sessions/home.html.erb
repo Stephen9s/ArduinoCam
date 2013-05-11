@@ -97,8 +97,8 @@
 	}
   	
 </script>
-
-<div class="image"></div>
+<div class="center-wrap">
+	<div class="image"></div>
 		<div id="message"></div>
 		<div id="camera_controls">
 			<%= @status %>
@@ -108,7 +108,6 @@
 				<a href="#" id="startCamera" data-role="button">Start Camera</a>
 			<% end%>
 		</div>
-		<div id="arduino_controller">
 			<% if @board.nil? %>
 				"Arduino not attached!"
 			<% else %>
@@ -119,7 +118,7 @@
 					<a href="#" id="turn-right" data-role="button">Right</a>
 				</div>
 			<% end %>
-		</div>
+</div>
 <script>
 	refreshImage();
 </script>

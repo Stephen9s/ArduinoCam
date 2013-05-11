@@ -28,14 +28,27 @@
   float: center;
 }
 
-#arduinocam-container {
-  
-}
-
 #image-wrapper {
   margin: 0 auto;
   //text-align: center;
   width: 320px;
   height: 240px;
   padding-bottom: 10px;
+}
+
+
+#signup-form {
+ margin: 0 auto;
+ text-align: center;
+ width: 40%;
+}
+
+#signup-title {
+ margin: 0 auto;
+ text-align: center;
+ width:55%;
+}
+
+.label {
+ text-align: right;
 }

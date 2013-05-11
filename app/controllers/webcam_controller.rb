@@ -138,8 +138,11 @@ class WebcamController < ApplicationController
   # If the camera is off, start it. Return JSON message if mobile.
   # => if desktop version, format.js is used to replace HTML within specified DOM object in the method.js.erb file
   def startCamera
+    
+    pid_filename = "/var/www/arduinosecucam/pid/motion.pid"
+    
     # Initial check for motion.pid file
-    pid_exists = File.exist?("/var/www/arduinosecucam/pid/motion.pid")
+    pid_exists = File.exist?(pid_filename)
     
     # Ensure that motion is NOT running
     if !pid_exists
@@ -182,12 +185,12 @@ class WebcamController < ApplicationController
       # Sleep for 1.1 seconds to give Motion enough time to create PID file
       sleep 1.1
       
-      @pid_now_exists = File.exist?("/var/www/arduinosecucam/pid/motion.pid")
+      @pid_now_exists = File.exist?(pid_filename)
       
       if @pid_now_exists
         # To avoid zombie processes, use simple system() call and don't print out PID; there is no return data for a system() call
-        pid, stdin, stdout, stderr = Open4::popen4 "pidof -s /usr/local/bin/motion"
-        getpid = stdout.read.strip
+        #pid, stdin, stdout, stderr = Open4::popen4 "pidof -s /usr/local/bin/motion"
+        getpid = File.open(pid_filename).first
         @status = "Motion started: PID #{getpid}"
         @button_label = "Close Camera"
       else
