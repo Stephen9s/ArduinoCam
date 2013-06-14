@@ -1,13 +1,5 @@
 Original arduino.pde:
 https://github.com/HashNuke/arduino
 
-<b>Custom Arduino Software</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.pde
+The Arduino Security Camera was my graduate project written in Ruby and communicated with an Arduino to control a motor. The web interface allowed the front-end user to communicate via serial to the Arduino and motor. A camera should be mounted on the motor and turned on using the web interface; once triggered, motion-detection software called Motion establishes a connection to the webcam to snap photos.
 
-<b>Custom Arduino Ruby Gem</b> - https://github.com/TheStoof/ArduinoCam/blob/master/arduino.rb
-
-
-<b>Desktop Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views
-
-<b>Mobile Views</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/views_mobile
-
-<b>Controllers</b> - https://github.com/TheStoof/ArduinoCam/tree/master/app/controllers
